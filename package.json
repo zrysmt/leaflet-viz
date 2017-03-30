@@ -22,5 +22,8 @@
     "url-loader": "^0.5.8",
     "webpack": "^2.3.2",
     "webpack-dev-server": "^2.4.2"
+  },
+  "dependencies": {
+    "leaflet": "^1.0.3"
   }
 }
