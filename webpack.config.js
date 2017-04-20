@@ -43,7 +43,7 @@ module.exports = {
         loaders: [
             { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },//支持es6
             // { test: /\.js?$/, exclude: /node_modules/, loader: 'babel', query: { presets: ['es2015', 'react'] } }, //同时支持es6 react
-            {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
+            {test: /\.(png|jpg|svg)$/, loader: 'url-loader?limit=8192'},
             { test: /\.css$/, loader: "style-loader!css-loader" },
             { test: /\.scss$/, loader: "style-loader!css-loader!sass-loader" }, //sass加载器
         ],
@@ -52,6 +52,7 @@ module.exports = {
     resolve: {
       extensions: ['.js', '.json']
     },
+    
     plugins: [
         // new webpack.NoErrorsPlugin(), //允许错误不打断程序
         new HtmlwebpackPlugin({
@@ -62,7 +63,10 @@ module.exports = {
                minifyJS: true,
                removeComments: true,
                minifyCSS: true
-            },
+            }
+        }),
+        new webpack.DefinePlugin({
+            __DEV__:isDebug
         })
     ],
     devtool: configVarObj.devtool

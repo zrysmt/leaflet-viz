@@ -4,6 +4,9 @@
     // margin-top: 8px;
     background: url(../common/imgs/toolbar.png) no-repeat;
 }
+.leaflet-control-container .leaflet-top .leaflet-control-zoom{
+   margin-top: 36px;
+}
 
 #toolbar {
     display: inline-block;

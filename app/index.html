@@ -4,8 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Leaflet示例</title>
-    <!-- <link rel="stylesheet" href="dist/leaflet.css"> -->
-    <!-- <script type="text/javascript" src="dist/leaflet-src.js"></script> -->
+    <!-- <link rel="stylesheet" href="../node_modules/leaflet/dist/leaflet.css"> -->
+    <!-- <script type="text/javascript" src="../node_modules/leaflet/dist/leaflet.js"></script>  -->
+    <!-- <link rel="stylesheet" href="../node_modules/leaflet-draw/dist/leaflet.draw.css"> -->
+    <!-- <script type="text/javascript" src="../node_modules/leaflet-draw/dist/leaflet.draw.js"></script>  -->
+    <!-- <script type="text/javascript" src="../node_modules/leaflet.measurecontrol/leaflet.measurecontrol.min.js"></script>  -->
+    <link rel="stylesheet" href="./app/common/css/leaflet.css">
     <style type="text/css">
     #map {
         width: 100%;
@@ -16,40 +20,40 @@
 
 <body>
     <div id="mapbar">
-        <div id="toolbar" class="mapbar">
-            <div id="pan" class="t-item" title="平移"></div>
-            <div id="zoomtoall" class="t-item" title="全图"></div>
-            <div id="distance" class="t-item" title="测距离"></div>
-            <div id="area" class="t-item" title="测面积"></div>
-            <div id="myposition" class="t-item" title="定位"></div>
-            <div id="click2find" class="t-item" title="点查询"></div>
-        </div>
-        <div id="editbar" className="mapbar">
-            <div id="e-select" className="e-item" title="选择">
-                <img src="app/common/imgs/select.png" />
-            </div>
-            <div id="e-point" className="e-item" title="绘制点">
-                <img src="app/common/imgs/point.png" />
-            </div>
-            <div id="e-line" className="e-item" title="绘制线">
-                <img src="app/common/imgs/line.png" />
-            </div>
-            <div id="e-rect" className="e-item" title="绘制矩形">
-                <img src="app/common/imgs/rect.png" />
-            </div>
-            <div id="e-rect" className="e-item" title="绘制多边形">
-                <img src="app/common/imgs/polygon.png" )}/>
-            </div>
-            <div id="e-edit" className="e-item" title="修改">
-                <img src="app/common/imgs/edit.png" />
-            </div>
-            <div id="e-delete" className="e-item" title="删除">
-                <img src="app/common/imgs/delete.png" />
-            </div>
-            <div id="e-save" className="e-item" title="保存">
-                <img src="app/common/imgs/save.png" />
-            </div>
-        </div>
+       <div id="toolbar" class="mapbar">
+           <div id="pan" class="t-item" title="平移"></div>
+           <div id="zoomtoall" class="t-item" title="全图"></div>
+           <!-- <div id="distance" class="t-item" title="测距离"></div> -->
+           <!-- <div id="area" class="t-item" title="测面积"></div> -->
+           <div id="myposition" class="t-item" title="定位"></div>
+           <div id="click2find" class="t-item" title="点查询"></div>
+       </div>
+       <!-- <div id="editbar" className="mapbar">
+           <div id="e-select" className="e-item" title="选择">
+               <img src="app/common/imgs/select.png" />
+           </div>
+           <div id="e-point" className="e-item" title="绘制点">
+               <img src="app/common/imgs/point.png" />
+           </div>
+           <div id="e-line" className="e-item" title="绘制线">
+               <img src="app/common/imgs/line.png" />
+           </div>
+           <div id="e-rect" className="e-item" title="绘制矩形">
+               <img src="app/common/imgs/rect.png" />
+           </div>
+           <div id="e-rect" className="e-item" title="绘制多边形">
+               <img src="app/common/imgs/polygon.png" )}/>
+           </div>
+           <div id="e-edit" className="e-item" title="修改">
+               <img src="app/common/imgs/edit.png" />
+           </div>
+           <div id="e-delete" className="e-item" title="删除">
+               <img src="app/common/imgs/delete.png" />
+           </div>
+           <div id="e-save" className="e-item" title="保存">
+               <img src="app/common/imgs/save.png" />
+           </div>
+       </div> -->
     </div>
     <div id="map"></div>
 </body>
