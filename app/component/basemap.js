@@ -10,12 +10,5 @@ L.control.scale().addTo(map); //比例尺
 var editableLayers = new L.FeatureGroup();
 var drawnItems = editableLayers.addTo(map);
 
-L.control.layers({
-    'osm': osm.addTo(map),
-    "google": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
-        attribution: 'google'
-    })
-}, { 'drawnItems': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
-
-
-export { map,editableLayers };
+console.info("map:",map);
+export { map,osm,editableLayers,drawnItems };

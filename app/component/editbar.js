@@ -62,6 +62,7 @@ class Editbar {
 
         var drawControl = new L.Control.Draw(options);
         map.addControl(drawControl);
+        console.info(L.DrawToolbar.TYPE);
 
         map.on(L.Draw.Event.CREATED, function(e) {
             var type = e.layerType,
