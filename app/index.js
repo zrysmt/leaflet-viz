@@ -6,6 +6,7 @@ import {map} from './component/basemap.js';
 import {Toolbar} from './component/toolbar.js';
 import {Editbar} from './component/editbar.js';
 import {Maptypebar} from './component/maptypebar.js';
+import {Viz} from './component/viz.js';
 
 util.adaptHeight("map",0);
 
@@ -16,3 +17,5 @@ let editbar = new Editbar();
 editbar.init(map);
 let maptypebar = new Maptypebar();
 maptypebar.init(map);
+let viz = new Viz();
+viz.init(map);

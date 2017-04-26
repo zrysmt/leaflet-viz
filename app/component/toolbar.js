@@ -3,7 +3,7 @@ import './toolbar.scss';
 // import L from 'leaflet';
 import $ from 'jquery';
 import config from './gConfig.js';
-import { map} from './basemap.js';
+import {map} from './basemap.js';
 import leafletImage from 'leaflet-image';
 // import  'leaflet-easyprint';
 

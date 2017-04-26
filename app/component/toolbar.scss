@@ -8,7 +8,7 @@
    margin-top: 36px;
 }
 
-#toolbar {
+.mapbar{
     display: inline-block;
     padding-left: 8px;
     border-left: solid 1px #ccc;
@@ -22,6 +22,8 @@
             opacity: 0.6;
         }
     }
+}
+#toolbar {
     #pan {
         background-position: -30px -277px;
     }
