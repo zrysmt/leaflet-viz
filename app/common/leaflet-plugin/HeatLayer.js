@@ -1,4 +1,10 @@
-import simpleheat  from './simpleheat.js'; 
+/**
+ * 热力图
+ * 增加
+    import simpleheat  from './lib/simpleheat.js'; 
+ * https://github.com/Leaflet/Leaflet.heat
+ */
+import simpleheat  from './lib/simpleheat.js'; 
 
 'use strict';
 
