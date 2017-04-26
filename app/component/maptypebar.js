@@ -7,7 +7,7 @@ class Maptypebar {
         this.initTianDitu();
         this.initGaode();
 
-        this.layers = L.control.layers({
+        let baseLayers = {
             'OpenStreetMap': osm.addTo(map),
             "Google卫星": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
                 attribution: 'google'
@@ -16,9 +16,12 @@ class Maptypebar {
             "天地图影像": this.tianDituLayersImage,
             "高德地图": this.gaodeLayersNormal,
             "高德地图影像": this.gaodeLayersImage,
-        }, { '绘制图层': drawnItems }, { position: 'topleft', collapsed: true }).addTo(map);
+        };
+        // Object.assign(baseLayers,this.geoqLayers);
+        this.layers = L.control.layers(baseLayers,{ '绘制图层': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
 
         this.initGeoq();
+        
     }
     initTianDitu() {
         let normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map', {
@@ -112,6 +115,8 @@ class Maptypebar {
             "暖色": normalm5,
             "冷色": normalm6
         }
+        
+        this.geoqLayers = geoqLayers;
 
 		L.control.layers(geoqLayers ,{}, { position: 'topleft', collapsed: false }).addTo(map);
 
