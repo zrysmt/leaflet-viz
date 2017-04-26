@@ -23,8 +23,7 @@ import '../common/leaflet-plugin/HeatLayer.js'; //Leaflet.heat
 
 // import echarts from 'echarts';
 // import echarts from '../common/leaflet-plugin/lib/echarts.source.js';
-import '../common/leaflet-plugin/leaflet-echarts.js';
-import {ecOption,geoCoord} from './vizConfig';
+import {ecOption} from './vizConfig-qianxi.js';
 
 class Viz {
     init() {
@@ -35,62 +34,66 @@ class Viz {
     		this.heatLayer();
     	});
     	$('#mapbar').on('click', '#echarts1', (event) => {
-    	});
-    	$('#mapbar').on('click', '#echarts2', (event) => {
     		if(!this.echarts){
     			util.getScript("/app/common/leaflet-plugin/lib/echarts.source.js").then((echarts)=>{
     			// util.getScript("/app/common/leaflet-plugin/lib/test.js").then(()=>{
     				console.log(window.echarts);
-    				this.echartsLayer(window.echarts);
+    				this.echartsLayer(window.echarts,"scatter");
     			});
     		}else{
-    			this.echartsLayer(this.echarts);
+    			this.echartsLayer(this.echarts,"scatter");
+    		}
+    	});
+    	$('#mapbar').on('click', '#echarts2', (event) => {
+    		if(!this.echarts){
+    			util.getScript("/app/common/leaflet-plugin/leaflet-echarts3.js").then(()=>{//version 2.x
+    				console.log(window.echarts);
+    				this.echartsLayer(window.echarts,"qianxi");
+    			});
+    		}else{
+    			this.echartsLayer(this.echarts,"qianxi");
     		}
     	});
 
     }
-    echartsLayer(echarts){
+    /**
+     * [echartsLayer leaflet+echarts]
+     * @param  {[Object]} echarts [echarts对象]
+     * @param  {[String]} type    [类型 如qianxi，迁徙图和散点图scatter]
+     */
+    echartsLayer(echarts,type){
     	this.echarts = echarts;
-    	let overlay = new L.echartsLayer(map, echarts);
+    	let overlay = new L.echartsLayer3(map, echarts);
     	let chartsContainer = overlay.getEchartsContainer();
     	let myChart = overlay.initECharts(chartsContainer);
     	window.onresize = myChart.onresize;
 
-    	function getGeoCoord (name) {
-    	    var city = name.split('_').pop();
-    	    var coord;
-    	    coord = geoCoord[city];
-    	    return coord;
+    	if(type == "qianxi"){
+    		 overlay.setOption(ecOption);
+    	}else if(type == "scatter"){
+    		var convertData = function (data) {
+			    var res = [];
+			    for (var i = 0; i < data.length; i++) {
+			        var coord = geoCoordMap[data[i].name];
+			        if (coord) {
+			            res.push({
+			                name: data[i].name,
+			                value: coord.concat(data[i].value)
+			            });
+			        }
+			    }
+			    return res;
+			};
+
+			scatterOption.series[0].data = convertData(ecSimpleData);
+			scatterOption.series[1].data = convertData(ecSimpleData.sort(function (a, b) {
+                return b.value - a.value;
+            }).slice(0, 6));
+
+    		overlay.setOption(scatterOption);
+
     	}
-	
-    	$.ajax({
-    	    url: 'http://7xp3u9.com1.z0.glb.clouddn.com/srcmigration.json',
-    	    type:"get",
-    	    dataType: 'json',
-    	    success: function(data) {
-    	        for(var key in data){
-    	            data[key].forEach(function (value, index) {
-    	                data[key][index].num=Number(value.num);
-    	            })
-    	        }
-    	        ecOption.series[0].markLine.data = data.allLine.sort(function (a, b) {
-    	            return b.num - a.num
-    	        }).slice(0, 3000).map(function (line) {
-    	            return [{
-    	                geoCoord: getGeoCoord(line.start)
-    	            }, {
-    	                geoCoord: getGeoCoord(line.end)
-    	            }]
-    	        });
-	
-    	        ecOption.series[0].markPoint.data = data.topCityOut.map(function (point) {
-    	            return {
-    	                geoCoord: getGeoCoord(point.name)
-    	            }
-    	        });
-    	        overlay.setOption(ecOption);
-    	    }
-    	});
+    	
     }
     heatLayer() {
         let url = "http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js";
