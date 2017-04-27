@@ -24,6 +24,7 @@ import '../common/leaflet-plugin/HeatLayer.js'; //Leaflet.heat
 // import echarts from 'echarts';
 // import echarts from '../common/leaflet-plugin/lib/echarts.source.js';
 import {ecOption} from './vizConfig-qianxi.js';
+import {scatterOption} from './vizConfig-scatter.js';
 
 class Viz {
     init() {
@@ -35,8 +36,7 @@ class Viz {
     	});
     	$('#mapbar').on('click', '#echarts1', (event) => {
     		if(!this.echarts){
-    			util.getScript("/app/common/leaflet-plugin/lib/echarts.source.js").then((echarts)=>{
-    			// util.getScript("/app/common/leaflet-plugin/lib/test.js").then(()=>{
+    			util.getScript("/app/common/leaflet-plugin/leaflet-echarts3.js").then(()=>{//version 2.x
     				console.log(window.echarts);
     				this.echartsLayer(window.echarts,"scatter");
     			});
@@ -71,27 +71,7 @@ class Viz {
     	if(type == "qianxi"){
     		 overlay.setOption(ecOption);
     	}else if(type == "scatter"){
-    		var convertData = function (data) {
-			    var res = [];
-			    for (var i = 0; i < data.length; i++) {
-			        var coord = geoCoordMap[data[i].name];
-			        if (coord) {
-			            res.push({
-			                name: data[i].name,
-			                value: coord.concat(data[i].value)
-			            });
-			        }
-			    }
-			    return res;
-			};
-
-			scatterOption.series[0].data = convertData(ecSimpleData);
-			scatterOption.series[1].data = convertData(ecSimpleData.sort(function (a, b) {
-                return b.value - a.value;
-            }).slice(0, 6));
-
     		overlay.setOption(scatterOption);
-
     	}
     	
     }
