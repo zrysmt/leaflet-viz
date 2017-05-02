@@ -46,6 +46,7 @@ module.exports = {
             {test: /\.(png|jpg|svg)$/, loader: 'url-loader?limit=8192'},
             { test: /\.css$/, loader: "style-loader!css-loader" },
             { test: /\.scss$/, loader: "style-loader!css-loader!sass-loader" }, //sass加载器
+            {  test: /\.json$/,exclude: /node_modules/,loader: 'json-loader'},
         ],
         // noParse: [path.join(__dirname, "dist/leaflet-src.js")]
     },

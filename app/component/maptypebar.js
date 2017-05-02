@@ -1,26 +1,39 @@
 import L from 'leaflet';
-import '../common/leaflet-plugin/leaflet.ChineseTmsProviders.js';
+import '../common/leaflet-plugin/leaflet.ChineseTmsProviders.js';//可以npm下载
+import "../common/tile.stamen.js";
+
 import { map, osm, editableLayers, drawnItems } from './basemap.js';
+let gLayer = {};
 
 class Maptypebar {
     init() {
+        map.on('baselayerchange',function(){
+            map.eachLayer(function(layer){
+                // console.log(layer);
+                // layer.remove();
+            })
+        })
         this.initTianDitu();
         this.initGaode();
-
+        this.googleImage = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+                attribution: 'google'
+        });
         let baseLayers = {
             'OpenStreetMap': osm.addTo(map),
-            "Google卫星": L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
-                attribution: 'google'
-            }),
+            "Google卫星": this.googleImage,
             "天地图": this.tianDituLayersNormal,
             "天地图影像": this.tianDituLayersImage,
             "高德地图": this.gaodeLayersNormal,
             "高德地图影像": this.gaodeLayersImage,
         };
         // Object.assign(baseLayers,this.geoqLayers);
-        this.layers = L.control.layers(baseLayers,{ '绘制图层': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
+        /*if(this.geoqLayers) map.removeLayer(this.geoqLayers);
+        if(this.coolLayer ) map.removeLayer(this.coolLayer);*/
+        this.baseLayers = baseLayers;
+        L.control.layers(baseLayers,{ '绘制图层': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
 
         this.initGeoq();
+        this.initSomeCoolMap();
         
     }
     initTianDitu() {
@@ -108,19 +121,47 @@ class Maptypebar {
         let normal = L.layerGroup([normalm1, normalm2, normalm3, normalm4, normalm5, normalm6]);
 
         let geoqLayers = {
-            "地图": normalm1,
-            "多彩": normalm2,
-            "午夜蓝": normalm3,
-            "灰色": normalm4,
-            "暖色": normalm5,
-            "冷色": normalm6
+            "Geoq地图": normalm1,
+            "Geoq多彩": normalm2,
+            "Geoq午夜蓝": normalm3,
+            "Geoq灰色": normalm4,
+            "Geoq暖色": normalm5,
+            "Geoq冷色": normalm6
         }
         
         this.geoqLayers = geoqLayers;
-
+        /*if(this.baseLayers) map.removeLayer(this.baseLayers);
+        if(this.coolLayer) map.removeLayer(this.coolLayer);*/
 		L.control.layers(geoqLayers ,{}, { position: 'topleft', collapsed: false }).addTo(map);
 
     }
+    initSomeCoolMap(){
+        /*if(this.baseLayers) map.removeLayer(this.baseLayers);
+        if(this.geoqLayers) map.removeLayer(this.geoqLayers);*/
+
+        let tonerLayer = new L.StamenTileLayer('toner', {
+            detectRetina: true
+        });
+        let terrainLayer = new L.StamenTileLayer('terrain');
+        let watercolorLayer = new L.StamenTileLayer('watercolor');
+
+        // baseLayer.addTo(map);
+
+        let prccEarthquakesLayer = L.tileLayer('http://{s}.tiles.mapbox.com/v3/bclc-apec.map-rslgvy56/{z}/{x}/{y}.png', {
+            attribution: 'Map &copy; Pacific Rim Coordination Center (PRCC).  Certain data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+        });
+        let coolLayer = {
+            '黑白图': tonerLayer,
+            '地形图':terrainLayer,
+            '水域图':watercolorLayer,
+            '地震图': prccEarthquakesLayer
+        };
+        this.coolLayer = coolLayer;
+        gLayer.coolLayer = coolLayer;
+        let layerControl = new L.Control.Layers(coolLayer,null,{ position: 'topleft', collapsed: false });
+
+        layerControl.addTo(map);
+    }
 }
 
-export { Maptypebar };
+export { Maptypebar,gLayer };

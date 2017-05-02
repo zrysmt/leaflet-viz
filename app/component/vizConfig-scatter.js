@@ -401,7 +401,6 @@ let scatterOption = {
     // backgroundColor: '#404a59',
     title: {
         text: 'Leaflet扩展Echarts3之全国主要城市空气质量',
-        subtext: 'Data from PM25.in,Develop By WanderGIS',
         sublink: 'http://www.pm25.in',
         left: 'center',
         textStyle: {

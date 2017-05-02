@@ -260,7 +260,6 @@ let ecOption = {
     //        backgroundColor: '#404a59',
     title: {
         text: 'Leaflet扩展Echarts3之模拟迁徙',
-        subtext: 'Develop By WanderGIS',
         left: 'center',
         textStyle: {
             color: '#fff'

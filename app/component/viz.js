@@ -25,6 +25,9 @@ import '../common/leaflet-plugin/HeatLayer.js'; //Leaflet.heat
 // import echarts from '../common/leaflet-plugin/lib/echarts.source.js';
 import {ecOption} from './vizConfig-qianxi.js';
 import {scatterOption} from './vizConfig-scatter.js';
+// import "/app/common/leaflet-plugin/leaflet-echarts3.js";
+
+import {Dvf} from './dvf.js';
 
 class Viz {
     init() {
@@ -44,17 +47,24 @@ class Viz {
     			this.echartsLayer(this.echarts,"scatter");
     		}
     	});
-    	$('#mapbar').on('click', '#echarts2', (event) => {
-    		if(!this.echarts){
-    			util.getScript("/app/common/leaflet-plugin/leaflet-echarts3.js").then(()=>{//version 2.x
-    				console.log(window.echarts);
-    				this.echartsLayer(window.echarts,"qianxi");
-    			});
-    		}else{
-    			this.echartsLayer(this.echarts,"qianxi");
-    		}
-    	});
-
+        $('#mapbar').on('click', '#echarts2', (event) => {
+            if(!this.echarts){
+                util.getScript("/app/common/leaflet-plugin/leaflet-echarts3.js").then(()=>{//version 2.x
+                    console.log(window.echarts);
+                    this.echartsLayer(window.echarts,"qianxi");
+                });
+            }else{
+                this.echartsLayer(this.echarts,"qianxi");
+            }
+        });
+    	$('#mapbar').on('click', '#dvf1', (event) => {
+            var dvf = new Dvf();
+            dvf.earthquakesSample();
+        });
+        $('#mapbar').on('click', '#dvf2', (event) => {
+            var dvf = new Dvf();
+            dvf.sample2();
+        });
     }
     /**
      * [echartsLayer leaflet+echarts]
@@ -68,12 +78,13 @@ class Viz {
     	let myChart = overlay.initECharts(chartsContainer);
     	window.onresize = myChart.onresize;
 
+        console.log("chartsContainer:",chartsContainer);
     	if(type == "qianxi"){
     		 overlay.setOption(ecOption);
     	}else if(type == "scatter"){
     		overlay.setOption(scatterOption);
     	}
-    	
+
     }
     heatLayer() {
         let url = "http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js";
