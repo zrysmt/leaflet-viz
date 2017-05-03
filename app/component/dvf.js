@@ -1,10 +1,13 @@
 /**
  * 使用leaflet-dvf扩展
  */
+import L from 'leaflet';
+
 import "./dvf.scss";
 import "../common/leaflet-plugin/Leaflet.dvf/css/dvf.css";
 // import "../common/leaflet-plugin/Leaflet.dvf/leaflet-dvf.js";
 import "leaflet-dvf";
+// import leafletDvfMarkers from "../common/leaflet-plugin/Leaflet.dvf/leaflet-dvf.markers.js";
 import $ from 'jquery';
 import moment from 'moment';
 import { map } from './basemap.js';
@@ -13,7 +16,6 @@ import { Maptypebar, gLayer } from './maptypebar.js';
 import earthquakesData from '../data/earthquakes.json';
 import countryData from '../data/countryData.js';
 import { incomeCategories, incomeLevels } from '../data/incomeData.js';
-import "../common/jsts.js";
 
 class Dvf {
     init() {
@@ -38,9 +40,9 @@ class Dvf {
 
             // Initialize framework linear functions for mapping earthquake data properties to Leaflet style properties
             // Color scale - green to red using the basic HSLHueFunction
-            let magnitudeColorFunction = new L.HSLHueFunction(new L.Point(0, 90), new L.Point(10, 0), { outputSaturation: '100%', outputLuminosity: '25%' });
-            let magnitudeFillColorFunction = new L.HSLHueFunction(new L.Point(0, 90), new L.Point(10, 0), { outputSaturation: '100%', outputLuminosity: '50%' });
-            let magnitudeRadiusFunction = new L.LinearFunction(new L.Point(0, 10), new L.Point(10, 30));
+            let magnitudeColorFunction = new L.HSLHueFunction(new L.Point(0, 90), new L.Point(10, 0), { outputSaturation: '100%', outputLuminosity: '25%',postProcess:null });
+            let magnitudeFillColorFunction = new L.HSLHueFunction(new L.Point(0, 90), new L.Point(10, 0), { outputSaturation: '100%', outputLuminosity: '50%',postProcess:null });
+            let magnitudeRadiusFunction = new L.LinearFunction(new L.Point(0, 10), new L.Point(10, 30),{postProcess:null});
 
             let now = Math.round((new Date()).getTime());
             let start = now - 86400000;
@@ -152,7 +154,13 @@ class Dvf {
         map.flyTo([0.0, 0.0], 2);
 
         let incomeLevelTypes = ['OEC', 'NOC', 'UMC', 'MIC', 'LMC', 'LIC', 'HPC'];
-        let valueArray = [{ "id": "HIC", "value": "High income" }, { "id": "HPC", "value": "Heavily indebted poor countries (HIPC)" }, { "id": "INX", "value": "Not classified" }, { "id": "LIC", "value": "Low income" }, { "id": "LMC", "value": "Lower middle income" }, { "id": "LMY", "value": "Low & middle income" }, { "id": "MIC", "value": "Middle income" }, { "id": "NOC", "value": "High income: nonOECD" }, { "id": "OEC", "value": "High income: OECD" }, { "id": "UMC", "value": "Upper middle income" }];
+        // let valueArray = [{ "id": "HIC", "value": "High income" }, { "id": "HPC", "value": "Heavily indebted poor countries (HIPC)" }, { "id": "INX", "value": "Not classified" }, { "id": "LIC", "value": "Low income" }, { "id": "LMC", "value": "Lower middle income" }, { "id": "LMY", "value": "Low & middle income" }, { "id": "MIC", "value": "Middle income" }, { "id": "NOC", "value": "High income: nonOECD" }, { "id": "OEC", "value": "High income: OECD" }, { "id": "UMC", "value": "Upper middle income" }];
+        let valueArray = [{ "id": "HIC", "value": "高收入(HIC)" }, 
+        { "id": "HPC", "value": "收入严重不足(HIPC)" }, { "id": "INX", "value": "未分类(INX)" },
+         { "id": "LIC", "value": "低收入(LIC)" }, { "id": "LMC", "value": "中等偏下(LMC)" }, 
+         { "id": "LMY", "value": "中低等收入" }, { "id": "MIC", "value": "中等收入(MIC)" }, 
+         { "id": "NOC", "value": "高收入：nonOECD(NOC)" }, { "id": "OEC", "value": "高收入: OECD(OEC)" }, 
+         { "id": "UMC", "value": "极高收入(UMC)" }];
         let getMap = function(valueArray) {
             let map = {};
             for (let index = 0; index < valueArray.length; ++index) {
@@ -209,8 +217,6 @@ class Dvf {
         };
 
         let incomeLayer = new L.ChoroplethDataLayer(incomeLevels, options);
-        console.log("incomeLayer:",incomeLayer);
-
         
         let legendControl = new L.Control.Legend();
 

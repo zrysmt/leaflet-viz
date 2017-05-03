@@ -68,6 +68,9 @@ module.exports = {
         }),
         new webpack.DefinePlugin({
             __DEV__:isDebug
+        }),
+        new webpack.ProvidePlugin({
+            
         })
     ],
     devtool: configVarObj.devtool

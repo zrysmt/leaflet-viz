@@ -1,3 +1,53 @@
+/**
+ * 收入水平，以中国为例
+ * {    "id": "CHN",
+        "iso2Code": "CN",
+        "name": "China",
+        "region": {
+            "id": "EAS",
+            "value": "East Asia & Pacific (all income levels)"
+        },
+        "adminregion": {
+            "id": "EAP",
+            "value": "East Asia & Pacific (developing only)"
+        },
+        "incomeLevel": {//收入水平
+            "id": "UMC",
+            "value": "Upper middle income"
+        },
+        "lendingType": {
+            "id": "IBD",
+            "value": "IBRD"
+        },
+        "capitalCity": "Beijing",
+        "longitude": "116.286",
+        "latitude": "40.0495"
+    }, {
+        "id": "CIV",
+        "iso2Code": "CI",
+        "name": "Cote d'Ivoire",
+        "region": {
+            "id": "SSF",
+            "value": "Sub-Saharan Africa (all income levels)"
+        },
+        "adminregion": {
+            "id": "SSA",
+            "value": "Sub-Saharan Africa (developing only)"
+        },
+        "incomeLevel": {
+            "id": "LMC",
+            "value": "Lower middle income"
+        },
+        "lendingType": {
+            "id": "IDX",
+            "value": "IDA"
+        },
+        "capitalCity": "Yamoussoukro",
+        "longitude": "-4.0305",
+        "latitude": "5.332"
+    }
+ * id是国家名称缩写
+ */
 export let incomeCategories = [{ "page": "1", "pages": "1", "per_page": "10", "total": "10" },
     [{ "id": "HIC", "value": "High income" }, { "id": "HPC", "value": "Heavily indebted poor countries (HIPC)" }, { "id": "INX", "value": "Not classified" }, { "id": "LIC", "value": "Low income" }, { "id": "LMC", "value": "Lower middle income" }, { "id": "LMY", "value": "Low & middle income" }, { "id": "MIC", "value": "Middle income" }, { "id": "NOC", "value": "High income: nonOECD" }, { "id": "OEC", "value": "High income: OECD" }, { "id": "UMC", "value": "Upper middle income" }]
 ];
