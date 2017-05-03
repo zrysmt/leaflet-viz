@@ -62,12 +62,7 @@ class MapServer {
         });
 
         map.addLayer(layer_0);
-        /*let osmGeocoder = new L.Control.OSMGeocoder({
-            collapsed: false,
-            position: 'topright',
-            text: 'Search',
-        });
-        osmGeocoder.addTo(map);*/
+        
         
     }
 }
