@@ -10,5 +10,4 @@ L.control.scale().addTo(map); //比例尺
 var editableLayers = new L.FeatureGroup();
 var drawnItems = editableLayers.addTo(map);
 
-console.info("map:",map);
 export { map,osm,editableLayers,drawnItems };

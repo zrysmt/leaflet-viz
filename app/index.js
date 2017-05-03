@@ -7,6 +7,7 @@ import {Toolbar} from './component/toolbar.js';
 import {Editbar} from './component/editbar.js';
 import {Maptypebar} from './component/maptypebar.js';
 import {Viz} from './component/viz.js';
+import {MapServer} from './component/mapServer.js';
 
 util.adaptHeight("map",0);
 
@@ -19,3 +20,5 @@ let maptypebar = new Maptypebar();
 maptypebar.init(map);
 let viz = new Viz();
 viz.init(map);
+let mapServer = new MapServer();
+mapServer.init();
