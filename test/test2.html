@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>leaflet加载MapServer示例子</title>
+    <!-- <link rel="stylesheet" href="../app/common/css/leaflet.css"> -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/leaflet/1.0.3/leaflet.css">
+    <style type="text/css">
+    #map {
+        width: 100%;
+        height: 600px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script src="https://cdn.bootcss.com/leaflet/1.0.3/leaflet-src.js"></script>
+    <!-- <script src="../app/common/leaflet-plugin/leaflet-src.js"></script> -->
+    <script type="text/javascript">
+    var map = L.map('map', {
+        crs: L.CRS.EPSG3857
+    });
+    map.setView([30, 104], 2);
+    // let map = L.map('map').setView([30, 104], 10); //默认墨卡托投影 ESPG：3857
+    //http://127.0.0.1:8000/cgi-bin/mapserv.exe?MAP=E:/ms4w/apps/test/test.map&LAYERS=ALL&MODE=MAP
+    //一定不要有&MODE=MAP
+    var myDemo = L.tileLayer.wms("http://127.0.0.1:8000/cgi-bin/mapserv.exe?MAP=E:/ms4w/apps/worldmap/world3857.map", {
+        layers: 'World_region',
+        format: 'image/png',
+        transparent: false,
+        crs: L.CRS.EPSG3857,
+        attribution: "自定义地图",
+    });
+
+    myDemo.addTo(map);
+
+   /* map.on('baselayerchange', function(e) {
+        console.log('Base Layer Change');
+        if (e.layer == osm && map.options.crs != L.CRS.EPSG3857) {
+            var center = map.getCenter();
+            var zoom = map.getZoom();
+            map.options.crs = L.CRS.EPSG3857;
+            map.setView(center, zoom);
+            // working HACK: remove and add layer again
+            map.removeLayer(e.layer);
+            map.addLayer(e.layer);
+        } else if (e.layer == wms && map.options.crs != L.CRS.EPSG4326) {
+            var center = map.getCenter();
+            var zoom = map.getZoom();
+            map.options.crs = L.CRS.EPSG4326;
+            map.setView(center, zoom);
+            //working HACK: remove and add layer again
+            map.removeLayer(e.layer);
+            map.addLayer(e.layer);
+        }
+    });*/
+    /*var wmsLayer = L.tileLayer.wms('http://demo.opengeo.org/geoserver/ows?', { layers: 'nasa:bluemarble' }).addTo(map);
+     */
+    /*var nexrad = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+        layers: 'nexrad-n0r-900913',
+        format: 'image/png',
+        transparent: true,
+        attribution: "Weather data © 2012 IEM Nexrad"
+    });
+    nexrad.addTo(map);*/
+    </script>
+</body>
+
+</html>

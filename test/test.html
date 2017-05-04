@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>openlayers 3加载MapServer示例子</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.1/css/ol.css" type="text/css">
+    <style type="text/css">
+    #map {
+        width: 100%;
+        height: 600px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script src="https://openlayers.org/en/v4.1.1/build/ol.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    /*    var projExtent = ol.proj.get('EPSG:3857').getExtent();
+            var startResolution = ol.extent.getWidth(projExtent) / 256;
+            var resolutions = new Array(22);
+            for (var i = 0, ii = resolutions.length; i < ii; ++i) {
+                resolutions[i] = startResolution / Math.pow(2, i);
+            }
+            var tileGrid = new ol.tilegrid.TileGrid({
+                extent: [-13884991, 2870341, -7455066, 6338219],
+                resolutions: resolutions,
+                tileSize: [512, 256]
+            });*/
+    var layers = [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+        }),
+        new ol.layer.Tile({
+            source: new ol.source.TileWMS({
+                url: 'http://127.0.0.1:8000/cgi-bin/mapserv.exe',
+                params: {
+                    'layers': 'World_region',
+                    'MAP': "E:/ms4w/apps/worldmap/world3857.map",
+                    'TILED': true
+                },
+                serverType: 'mapserver',
+                // tileGrid: tileGrid
+            })
+        })
+    ];
+    var map = new ol.Map({
+        target: 'map',
+        layers: layers,
+        view: new ol.View({
+            center: ol.proj.fromLonLat([104, 30]),
+            zoom: 2,
+            projection: 'EPSG:3857'
+        })
+    });
+    /*let map = L.map('map').setView([30, 104], 10); //默认墨卡托投影 ESPG：3857
+    //http://127.0.0.1:8000/cgi-bin/mapserv.exe?MAP=E:/ms4w/apps/test/test.map&LAYERS=ALL&MODE=MAP
+    var myDemo = L.tileLayer.wms("http://127.0.0.1:8000/cgi-bin/mapserv.exe?MAP=E:/ms4w/apps/test/test.map&MODE=MAP", {
+        layers: 'World_region',
+        format: 'image/png',
+        transparent: false,
+        attribution: "自定义地图"
+    });
+
+    myDemo.addTo(map);*/
+    /*var nexrad = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+        layers: 'nexrad-n0r-900913',
+        format: 'image/png',
+        transparent: true,
+        attribution: "Weather data © 2012 IEM Nexrad"
+    });
+    nexrad.addTo(map);*/
+    </script>
+</body>
+
+</html>
