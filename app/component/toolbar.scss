@@ -23,6 +23,12 @@
         }
     }
 }
+
+.mapbar div{
+    width:23px;
+    height:23px;
+}
+
 #toolbar {
     #pan {
         background-position: -30px -277px;
@@ -48,4 +54,5 @@
     #print2pdf{
         background-position: -5px -108px;
     }
+
 }

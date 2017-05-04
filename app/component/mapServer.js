@@ -1,3 +1,5 @@
+import './mapServer.scss';
+
 import L from 'leaflet';
 import { map } from './basemap.js';
 import $ from 'jquery';
