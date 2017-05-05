@@ -160,7 +160,7 @@ class Dvf {
          { "id": "LIC", "value": "低收入(LIC)" }, { "id": "LMC", "value": "中等偏下(LMC)" }, 
          { "id": "LMY", "value": "中低等收入" }, { "id": "MIC", "value": "中等收入(MIC)" }, 
          { "id": "NOC", "value": "高收入：nonOECD(NOC)" }, { "id": "OEC", "value": "高收入: OECD(OEC)" }, 
-         { "id": "UMC", "value": "极高收入(UMC)" }];
+         { "id": "UMC", "value": "中等偏上(UMC)" }];
         let getMap = function(valueArray) {
             let map = {};
             for (let index = 0; index < valueArray.length; ++index) {
