@@ -169,6 +169,7 @@ class Viz {
         }
 
     }
+    /*热力图*/
     heatLayer() {
         let url = "http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js";
         util.getScript(url).then(() => {
