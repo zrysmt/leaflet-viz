@@ -1,0 +1,16 @@
+ @import '_css-reset';
+
+#mapbar{
+ 	position: absolute;
+ 	display: flex;
+ 	display: -webkit-flex;
+ 	align-items: center;
+ 	width: 90%;
+ 	padding-left:10%;
+ 	background-color: rgba(255,255,255,0.8);
+ 	z-index: 9999;
+ }
+
+#map{
+	/*height:100%;*/
+}
