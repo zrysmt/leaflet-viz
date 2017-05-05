@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <title>Leaflet示例</title>
     
+    
+    
+    
+    
+    <link rel="stylesheet" href="./app/common/css/leaflet.css">
     <style type="text/css">#map{width:100%;height:600px}</style>
 </head>
 
@@ -13,39 +18,28 @@
         <div id="toolbar" class="mapbar">
             <div id="pan" class="t-item" title="平移"></div>
             <div id="zoomtoall" class="t-item" title="全图"></div>
-            <div id="distance" class="t-item" title="测距离"></div>
-            <div id="area" class="t-item" title="测面积"></div>
+            
+            
             <div id="myposition" class="t-item" title="定位"></div>
             <div id="click2find" class="t-item" title="点查询"></div>
+            <div id="print2img" class="t-item" title="地图图片"></div>
+            <div id="print2pdf" class="t-item" title="打印"></div>
         </div>
-        <div id="editbar" classname="mapbar">
-            <div id="e-select" classname="e-item" title="选择">
-                <img src="app/common/imgs/select.png">
-            </div>
-            <div id="e-point" classname="e-item" title="绘制点">
-                <img src="app/common/imgs/point.png">
-            </div>
-            <div id="e-line" classname="e-item" title="绘制线">
-                <img src="app/common/imgs/line.png">
-            </div>
-            <div id="e-rect" classname="e-item" title="绘制矩形">
-                <img src="app/common/imgs/rect.png">
-            </div>
-            <div id="e-rect" classname="e-item" title="绘制多边形">
-                <img src="app/common/imgs/polygon.png" )}>
-            </div>
-            <div id="e-edit" classname="e-item" title="修改">
-                <img src="app/common/imgs/edit.png">
-            </div>
-            <div id="e-delete" classname="e-item" title="删除">
-                <img src="app/common/imgs/delete.png">
-            </div>
-            <div id="e-save" classname="e-item" title="保存">
-                <img src="app/common/imgs/save.png">
-            </div>
+        <div id="vizbar" class="mapbar">
+            <div id="heatbar" class="v-item" title="热力图示例"></div>
+            <div id="echarts1" class="v-item" title="echarts散点图"></div>
+            <div id="echarts2" class="v-item" title="echarts迁徙"></div>
+            <div id="divicon" class="v-item" title="DivIcon和echarts"></div>
+            <div id="dvf1" class="v-item" title="leaflet-dvf示例1"></div>
+            <div id="dvf2" class="v-item" title="leaflet-dvf示例2"></div>
         </div>
+        <div id="mapserverbar" class="mapbar">
+            <div id="json" class="m-item" title="json"></div>
+        </div>
+        
     </div>
     <div id="map"></div>
-<script type="text/javascript" src="page.min.js?f3db41b572178105e6c7"></script></body>
+    
+<script type="text/javascript" src="page.min.js?df3841f0dd06ffc70d34"></script></body>
 
 </html>

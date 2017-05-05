@@ -20,7 +20,8 @@ import util from '../common/util.js';
 
 import { map } from './basemap.js';
 import '../common/leaflet-plugin/HeatLayer.js'; //Leaflet.heat
-import initEchartsLegend from '../common/plugin/echartsLegend.js'; //echartsLegend
+import echartsIcon from '../common/plugin/echartsIcon.js'; //echartsLegend
+import echartsLegend from '../common/plugin/echartsLegend.js'; //echartsLegend
 
 import echarts from 'echarts';
 // import echarts from '../common/leaflet-plugin/lib/echarts.source.js';
@@ -72,16 +73,6 @@ class Viz {
     }
 
     divIconEchartsDemo() {
-            var myIcon = L.divIcon({ 
-                className: 'my-div-icon', 
-                html: "<div id='echarts-icon' class='echarts-icon icon1'></div>",
-                iconSize:L.point(100,100)
-            });
-            // you can set .my-div-icon styles in CSS
-            L.marker([30, 104], { icon: myIcon }).addTo(map);
-
-            // let myChart = echarts.init(document.getElementById('echarts-icon'));
-            let myChart = echarts.init(document.getElementsByClassName('icon1')[0]);
             let option = {
                 tooltip: {
                     trigger: 'item',
@@ -97,7 +88,7 @@ class Viz {
                             show: false
                         },
                         emphasis: {
-                            show: true
+                            show: false
                         }
                     },
                     lableLine: {
@@ -105,16 +96,10 @@ class Viz {
                             show: false
                         },
                         emphasis: {
-                            show: true
+                            show: false
                         }
                     },
-                    data: [
-                        { value: 335, name: '直接访问' },
-                        { value: 310, name: '邮件营销' },
-                        { value: 234, name: '联盟广告' },
-                        { value: 135, name: '视频广告' },
-                        { value: 1548, name: '搜索引擎' }
-                    ],
+
                     itemStyle: {
                         emphasis: {
                             shadowBlur: 10,
@@ -124,16 +109,45 @@ class Viz {
                     }
                 }]
             };
-            myChart.setOption(option);
+            //经纬度不能相同
+            let latlngs = [
+                [30, 104],
+                [31, 110],
+                [34, 120]
+            ];
+            option.datas = [
+                [
+                    { value: 335, name: '直接访问' },
+                    { value: 310, name: '邮件营销' },
+                    { value: 234, name: '联盟广告' },
+                    { value: 135, name: '视频广告' },
+                    { value: 1548, name: '搜索引擎' }
+                ],
+                [
+                    { value: 345, name: '直接访问' },
+                    { value: 410, name: '邮件营销' },
+                    { value: 244, name: '联盟广告' },
+                    { value: 145, name: '视频广告' },
+                    { value: 548, name: '搜索引擎' }
+                ],
+                [
+                    { value: 445, name: '直接访问' },
+                    { value: 410, name: '邮件营销' },
+                    { value: 244, name: '联盟广告' },
+                    { value: 145, name: '视频广告' },
+                    { value: 148, name: '搜索引擎' }
+                ],
+            ];
+            echartsIcon(map, latlngs, option);
             //图例
             let legendOption = {
                 orient: 'vertical',
                 left: 'left',
-                width : "90px",
-                height : "140px",
-                data:['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+                width: "90px",
+                height: "140px",
+                data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
             };
-            initEchartsLegend(map,legendOption);
+            echartsLegend(map, legendOption);
         }
         /**
          * [echartsLayer leaflet+echarts]

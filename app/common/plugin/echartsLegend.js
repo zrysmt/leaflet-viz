@@ -5,8 +5,20 @@
  */
 import L from 'leaflet';
 import echarts from 'echarts';
-
-function initEchartsLegend(map, option) {
+/**
+ * [echartsLegend description]
+ * @param  {L.map} map     leaflet地图类
+ * @param  {Object} option  [配置对象]
+ *
+ * 配置项 option = {
+        orient: 'vertical',
+        left: 'left',
+        width: "90px",
+        height: "140px",
+        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+    };
+ */
+function echartsLegend(map, option) {
     if(!option||!option.data){
         console.warn("没有图例的数据或者图例数据不是数组");
         return;
@@ -97,4 +109,4 @@ L.Control.echartsLegend = function(options) {
 };
 
 
-export default initEchartsLegend;
+export default echartsLegend;
