@@ -23,17 +23,15 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
 });
 
 L.TileLayer.ChinaProvider.providers = {
-    Baidu:{
+/*    Baidu:{
         Normal: {
-            // Map: "http://online{s}.map.bdimg.com/onlinelabel/?qt=tile&x={x}&y={y}&z={z}&styles=pl&udt=20170428&scaler=1&p=0",
             Map: "http://online{s}.map.bdimg.com/tile/?qt=tile&x={x}&y={y}&z={z}&styles=pl",
         },
         Satellite: {
-            // Map: "http://shangetu{s}.map.bdimg.com/it/u=x={x};y={y};z={z};v=009;type=sate&fm=46&udt=20150601",
             Map: "http://shangetu{s}.map.bdimg.com/it/u=x={x};y={y};z={z};v=009;type=sate&fm=46&udt=20150504&app=webearth2&v=009&udt=20150601",
         },
         Subdomains: ["0","1", "2", "3", "4"]
-    },
+    },*/
     TianDiTu: {
         Normal: {
             Map: "http://t{s}.tianditu.cn/DataServer?T=vec_w&X={x}&Y={y}&L={z}",

@@ -1,7 +1,9 @@
 import L from 'leaflet';
+import projzh from 'projzh';
+
 import '../common/leaflet-plugin/leaflet.ChineseTmsProviders.js'; //源码上有修改
 // import '../common/plugin/proj4leaflet.js';
-// import '../common/baiduMapAPI-2.0-min.js';
+import '../common/baiduMapAPI-2.0-min.js';
 
 import '../common/plugin/leaflet.baidu.js';
 import "../common/tile.stamen.js";
@@ -14,6 +16,12 @@ class Maptypebar {
         map.on('baselayerchange', function(e) {
             if (e.name.indexOf("百度地图") !== -1) {
                 // map.options.crs = L.CRS.EPSGB3857;
+                //百度地图的时候转化中心坐标
+                /*let ll = [map.getCenter().lng,map.getCenter().lat];
+                let baiduMercator = projzh.ll2bmerc(ll);
+                let center = L.latLng(baiduMercator[1],baiduMercator[0]);
+                console.info(map.getCenter(),ll,baiduMercator,center);
+                map.setView(center);*/
             } else {
                 // map.options.crs = L.CRS.EPSG3857;
             }
@@ -32,17 +40,11 @@ class Maptypebar {
             maxZoom: 18,
             minZoom: 1
         });
-        // this.googleImageGroup = L.layerGroup([this.googleNormal,this.googleImage]);
-        /*this.BaiduNormal = L.tileLayer.chinaProvider('Baidu.Normal.Map', {
-            maxZoom: 18,
-            minZoom: 1
-        });
-        this.BaiduNormal1 = new L.TileLayer.BaiduLayer("Normal.Map");
-
-        this.BaiduImage = L.tileLayer.chinaProvider('Baidu.Satellite.Map', {
-            maxZoom: 18,
-            minZoom: 1
-        });*/
+      
+        this.baiduNormal = new L.TileLayer.BaiduLayer("Normal.Map");
+        this.baiduImage = new L.TileLayer.BaiduLayer("Satellite.Map");
+        this.baiduRoad = new L.TileLayer.BaiduLayer("Satellite.Road");
+        this.baiduStellite = L.layerGroup([this.baiduImage,this.baiduRoad] );
         let baseLayers = {
             'OpenStreetMap': osm.addTo(map),
             "Google地图": this.googleNormal,
@@ -51,9 +53,8 @@ class Maptypebar {
             "天地图影像": this.tianDituLayersImage,
             "高德地图": this.gaodeLayersNormal,
             "高德地图影像": this.gaodeLayersImage,
-            /*"百度地图": this.BaiduNormal,
-            "百度地图1": this.BaiduNormal1,
-            "百度卫星地图": this.BaiduImage,*/
+            "百度地图": this.baiduNormal,
+            "百度卫星地图": this.baiduStellite,
             "Geoq地图": this.normalm1,
             "Geoq多彩": this.normalm2,
             "Geoq午夜蓝": this.normalm3,
@@ -66,10 +67,9 @@ class Maptypebar {
             '地震图': this.prccEarthquakesLayer
         };
         // Object.assign(baseLayers,this.geoqLayers);
-        /*if(this.geoqLayers) map.removeLayer(this.geoqLayers);
-        if(this.coolLayer ) map.removeLayer(this.coolLayer);*/
+
         this.baseLayers = baseLayers;
-        L.control.layers(baseLayers, { '绘制图层': drawnItems }, { position: 'topleft', collapsed: true }).addTo(map);
+        L.control.layers(baseLayers, { '天地图标注':this.tianDituLayersAnno ,'绘制图层': drawnItems }, { position: 'topleft', collapsed: true }).addTo(map);
 
 
 
@@ -100,6 +100,7 @@ class Maptypebar {
             "天地图影像": image,
         }
         this.tianDituLayers = tianDituLayers;
+        this.tianDituLayersAnno = normala;
         this.tianDituLayersNormal = normal;
         this.tianDituLayersImage = image;
         // L.control.layers(tianDituLayers).addTo(map);

@@ -38,6 +38,7 @@
     "leaflet-draw": "^0.4.9",
     "leaflet.measurecontrol": "^1.1.0",
     "proj4": "^2.4.3",
-    "proj4leaflet": "^1.0.1"
+    "proj4leaflet": "^1.0.1",
+    "projzh": "^0.5.0"
   }
 }
