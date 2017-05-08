@@ -1,5 +1,9 @@
 import L from 'leaflet';
-import '../common/leaflet-plugin/leaflet.ChineseTmsProviders.js';//可以npm下载
+import '../common/leaflet-plugin/leaflet.ChineseTmsProviders.js'; //源码上有修改
+// import '../common/plugin/proj4leaflet.js';
+// import '../common/baiduMapAPI-2.0-min.js';
+
+import '../common/plugin/leaflet.baidu.js';
 import "../common/tile.stamen.js";
 
 import { map, osm, editableLayers, drawnItems } from './basemap.js';
@@ -7,21 +11,38 @@ let gLayer = {};
 
 class Maptypebar {
     init() {
-        map.on('baselayerchange',function(){
-            map.eachLayer(function(layer){
-                // console.log(layer);
-                // layer.remove();
-            })
+        map.on('baselayerchange', function(e) {
+            if (e.name.indexOf("百度地图") !== -1) {
+                // map.options.crs = L.CRS.EPSGB3857;
+            } else {
+                // map.options.crs = L.CRS.EPSG3857;
+            }
+            /*map.eachLayer(function(layer) {
+                console.log("layer:", layer);
+            })*/
         })
         this.initTianDitu();
         this.initGaode();
+        this.initGeoq();
+        this.initSomeCoolMap();
         this.googleImage = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
-                attribution: 'google'
+            attribution: 'google'
         });
-        this.googleNormal = L.tileLayer.chinaProvider('Google.Normal.Map',{
-                maxZoom: 18,
-                minZoom: 1
-            });
+        this.googleNormal = L.tileLayer.chinaProvider('Google.Normal.Map', {
+            maxZoom: 18,
+            minZoom: 1
+        });
+        // this.googleImageGroup = L.layerGroup([this.googleNormal,this.googleImage]);
+        /*this.BaiduNormal = L.tileLayer.chinaProvider('Baidu.Normal.Map', {
+            maxZoom: 18,
+            minZoom: 1
+        });
+        this.BaiduNormal1 = new L.TileLayer.BaiduLayer("Normal.Map");
+
+        this.BaiduImage = L.tileLayer.chinaProvider('Baidu.Satellite.Map', {
+            maxZoom: 18,
+            minZoom: 1
+        });*/
         let baseLayers = {
             'OpenStreetMap': osm.addTo(map),
             "Google地图": this.googleNormal,
@@ -30,16 +51,28 @@ class Maptypebar {
             "天地图影像": this.tianDituLayersImage,
             "高德地图": this.gaodeLayersNormal,
             "高德地图影像": this.gaodeLayersImage,
+            /*"百度地图": this.BaiduNormal,
+            "百度地图1": this.BaiduNormal1,
+            "百度卫星地图": this.BaiduImage,*/
+            "Geoq地图": this.normalm1,
+            "Geoq多彩": this.normalm2,
+            "Geoq午夜蓝": this.normalm3,
+            "Geoq灰色": this.normalm4,
+            "Geoq暖色": this.normalm5,
+            "Geoq冷色": this.normalm6,
+            '黑白图': this.tonerLayer,
+            '地形图': this.terrainLayer,
+            '水域图': this.watercolorLayer,
+            '地震图': this.prccEarthquakesLayer
         };
         // Object.assign(baseLayers,this.geoqLayers);
         /*if(this.geoqLayers) map.removeLayer(this.geoqLayers);
         if(this.coolLayer ) map.removeLayer(this.coolLayer);*/
         this.baseLayers = baseLayers;
-        L.control.layers(baseLayers,{ '绘制图层': drawnItems }, { position: 'topleft', collapsed: false }).addTo(map);
+        L.control.layers(baseLayers, { '绘制图层': drawnItems }, { position: 'topleft', collapsed: true }).addTo(map);
 
-        this.initGeoq();
-        this.initSomeCoolMap();
-        
+
+
     }
     initTianDitu() {
         let normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map', {
@@ -74,15 +107,15 @@ class Maptypebar {
     initGaode() {
         let normalm = L.tileLayer.chinaProvider('GaoDe.Normal.Map', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
         let imgm = L.tileLayer.chinaProvider('GaoDe.Satellite.Map', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
         let imga = L.tileLayer.chinaProvider('GaoDe.Satellite.Annotion', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
 
         let normal = L.layerGroup([normalm]),
@@ -100,31 +133,36 @@ class Maptypebar {
     initGeoq() {
         let normalm1 = L.tileLayer.chinaProvider('Geoq.Normal.Map', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
         let normalm2 = L.tileLayer.chinaProvider('Geoq.Normal.Color', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
         let normalm3 = L.tileLayer.chinaProvider('Geoq.Normal.PurplishBlue', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
         let normalm4 = L.tileLayer.chinaProvider('Geoq.Normal.Gray', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
         let normalm5 = L.tileLayer.chinaProvider('Geoq.Normal.Warm', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
         let normalm6 = L.tileLayer.chinaProvider('Geoq.Normal.Cold', {
             maxZoom: 18,
-            minZoom: 5
+            minZoom: 1
         });
 
         let normal = L.layerGroup([normalm1, normalm2, normalm3, normalm4, normalm5, normalm6]);
-
+        this.normalm1 = normalm1;
+        this.normalm2 = normalm2;
+        this.normalm3 = normalm3;
+        this.normalm4 = normalm4;
+        this.normalm5 = normalm5;
+        this.normalm6 = normalm6;
         let geoqLayers = {
             "Geoq地图": normalm1,
             "Geoq多彩": normalm2,
@@ -133,14 +171,13 @@ class Maptypebar {
             "Geoq暖色": normalm5,
             "Geoq冷色": normalm6
         }
-        
+
         this.geoqLayers = geoqLayers;
-        /*if(this.baseLayers) map.removeLayer(this.baseLayers);
-        if(this.coolLayer) map.removeLayer(this.coolLayer);*/
-		L.control.layers(geoqLayers ,{}, { position: 'topleft', collapsed: false }).addTo(map);
+
+        // L.control.layers(geoqLayers ,{}, { position: 'topleft', collapsed: false }).addTo(map);
 
     }
-    initSomeCoolMap(){
+    initSomeCoolMap() {
         /*if(this.baseLayers) map.removeLayer(this.baseLayers);
         if(this.geoqLayers) map.removeLayer(this.geoqLayers);*/
 
@@ -157,16 +194,20 @@ class Maptypebar {
         });
         let coolLayer = {
             '黑白图': tonerLayer,
-            '地形图':terrainLayer,
-            '水域图':watercolorLayer,
+            '地形图': terrainLayer,
+            '水域图': watercolorLayer,
             '地震图': prccEarthquakesLayer
         };
         this.coolLayer = coolLayer;
         gLayer.coolLayer = coolLayer;
-        let layerControl = new L.Control.Layers(coolLayer,null,{ position: 'topleft', collapsed: false });
+        this.tonerLayer = tonerLayer;
+        this.terrainLayer = terrainLayer;
+        this.watercolorLayer = watercolorLayer;
+        this.prccEarthquakesLayer = prccEarthquakesLayer;
+        /*let layerControl = new L.Control.Layers(coolLayer,null,{ position: 'topleft', collapsed: false });
 
-        layerControl.addTo(map);
+        layerControl.addTo(map);*/
     }
 }
 
-export { Maptypebar,gLayer };
+export { Maptypebar, gLayer };
