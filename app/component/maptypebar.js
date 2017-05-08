@@ -18,8 +18,13 @@ class Maptypebar {
         this.googleImage = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
                 attribution: 'google'
         });
+        this.googleNormal = L.tileLayer.chinaProvider('Google.Normal.Map',{
+                maxZoom: 18,
+                minZoom: 1
+            });
         let baseLayers = {
             'OpenStreetMap': osm.addTo(map),
+            "Google地图": this.googleNormal,
             "Google卫星": this.googleImage,
             "天地图": this.tianDituLayersNormal,
             "天地图影像": this.tianDituLayersImage,
@@ -39,19 +44,19 @@ class Maptypebar {
     initTianDitu() {
         let normalm = L.tileLayer.chinaProvider('TianDiTu.Normal.Map', {
                 maxZoom: 18,
-                minZoom: 5
+                minZoom: 1
             }),
             normala = L.tileLayer.chinaProvider('TianDiTu.Normal.Annotion', {
                 maxZoom: 18,
-                minZoom: 5
+                minZoom: 1
             }),
             imgm = L.tileLayer.chinaProvider('TianDiTu.Satellite.Map', {
                 maxZoom: 18,
-                minZoom: 5
+                minZoom: 1
             }),
             imga = L.tileLayer.chinaProvider('TianDiTu.Satellite.Annotion', {
                 maxZoom: 18,
-                minZoom: 5
+                minZoom: 1
             });
 
         let normal = L.layerGroup([normalm, normala]),
