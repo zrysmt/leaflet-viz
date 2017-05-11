@@ -100,8 +100,8 @@ class Maptypebar {
             "天地图影像": image,
         }
         this.tianDituLayers = tianDituLayers;
-        this.tianDituLayersAnno = normala;
         this.tianDituLayersNormal = normal;
+        this.tianDituLayersAnno = normala;
         this.tianDituLayersImage = image;
         // L.control.layers(tianDituLayers).addTo(map);
     }
