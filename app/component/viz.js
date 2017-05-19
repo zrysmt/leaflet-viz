@@ -30,6 +30,9 @@ import { scatterOption } from './vizConfig-scatter.js';
 // import "/app/common/leaflet-plugin/leaflet-echarts3.js";
 
 import { Dvf } from './dvf.js';
+//修复加载eaflet-echarts3.js的路径
+let index = window.location.href.indexOf('leaflet-demo')>-1?(window.location.href.indexOf('leaflet-demo')+12):0;
+let href = window.location.href.slice(0,index);
 
 class Viz {
     init() {
@@ -41,7 +44,7 @@ class Viz {
         });
         $('#mapbar').on('click', '#echarts1', (event) => {
             if (!this.echarts) {
-                util.getScript("/app/common/leaflet-plugin/leaflet-echarts3.js").then(() => { //version 2.x
+                util.getScript(href+"/app/common/leaflet-plugin/leaflet-echarts3.js").then(() => { //version 2.x
                     console.log(window.echarts);
                     this.echartsLayer(window.echarts, "scatter");
                 });
@@ -51,7 +54,7 @@ class Viz {
         });
         $('#mapbar').on('click', '#echarts2', (event) => {
             if (!this.echarts) {
-                util.getScript("/app/common/leaflet-plugin/leaflet-echarts3.js").then(() => { //version 2.x
+                util.getScript(href+"/app/common/leaflet-plugin/leaflet-echarts3.js").then(() => { //version 2.x
                     this.echartsLayer(window.echarts, "qianxi");
                 });
             } else {
