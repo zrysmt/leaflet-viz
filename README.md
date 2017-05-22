@@ -1,3 +1,5 @@
+# leaflet-viz
+
 ## Install
 ```bash
 npm install
