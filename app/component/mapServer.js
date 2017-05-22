@@ -8,6 +8,7 @@ import { json_china } from '../data/china.js';
 
 class MapServer {
     init() {
+        /*加载GeoJson的例子*/
         $('#mapbar').on('click', '#json', (event) => {
             this.chinaJson();
         });

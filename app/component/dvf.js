@@ -33,6 +33,9 @@ class Dvf {
 
         legendControl.addTo(map);
     }
+    /**
+     * [earthquakesSample 地震图示例]
+     */
     earthquakesSample() {
         let lastLayer;
 
@@ -150,7 +153,10 @@ class Dvf {
          // Periodically request the latest data
          setInterval(getData, 300000);*/
     }
-    sample2() {
+    /**
+     * [worldIncomeSample 世界国家收入示例Demo]
+     */
+    worldIncomeSample() {
         map.flyTo([0.0, 0.0], 2);
 
         let incomeLevelTypes = ['OEC', 'NOC', 'UMC', 'MIC', 'LMC', 'LIC', 'HPC'];
