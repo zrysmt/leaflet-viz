@@ -2,16 +2,6 @@
  * 可视化
  * @Author zry
  * @Date 2017-04-26
- * [heatmap](https://github.com/Leaflet/Leaflet.heat)
- * Basic Usage
-    ```
-    var heat = L.heatLayer([
-        [50.5, 30.5, 0.2], // lat, lng, intensity
-        [50.6, 30.4, 0.5],
-        ...
-    ], {radius: 25}).addTo(map)
-    ```
-
  * 
  */
 import './viz.scss';
@@ -186,6 +176,16 @@ class Viz {
     }
     /**
      * [heatLayerDemo 热力图]
+     * [heatmap](https://github.com/Leaflet/Leaflet.heat)
+     * Basic Usage
+    ```
+    var heat = L.heatLayer([
+        [50.5, 30.5, 0.2], // lat, lng, intensity
+        [50.6, 30.4, 0.5],
+        ...
+    ], {radius: 25}).addTo(map)
+    ```
+
      */
     heatLayerDemo() {
         let url = "http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js";//示例数据地址
