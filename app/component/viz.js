@@ -188,7 +188,7 @@ class Viz {
 
      */
     heatLayerDemo() {
-        let url = "http://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js";//示例数据地址
+        let url = "https://leaflet.github.io/Leaflet.markercluster/example/realworld.10000.js";//示例数据地址
         util.getScript(url).then(() => {
             map.flyTo([-37.87, 175.475], 12);
 
