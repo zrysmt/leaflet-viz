@@ -1,3 +1,9 @@
+/**
+ * 增加百度地图
+ *
+ * 有问题
+ * @Date 2017-05-08
+ */
 L.TileLayer.ChinaProvider = L.TileLayer.extend({
 
     initialize: function(type, options) { // (type, Object)
@@ -17,6 +23,15 @@ L.TileLayer.ChinaProvider = L.TileLayer.extend({
 });
 
 L.TileLayer.ChinaProvider.providers = {
+/*    Baidu:{
+        Normal: {
+            Map: "http://online{s}.map.bdimg.com/tile/?qt=tile&x={x}&y={y}&z={z}&styles=pl",
+        },
+        Satellite: {
+            Map: "http://shangetu{s}.map.bdimg.com/it/u=x={x};y={y};z={z};v=009;type=sate&fm=46&udt=20150504&app=webearth2&v=009&udt=20150601",
+        },
+        Subdomains: ["0","1", "2", "3", "4"]
+    },*/
     TianDiTu: {
         Normal: {
             Map: "http://t{s}.tianditu.cn/DataServer?T=vec_w&X={x}&Y={y}&L={z}",
@@ -49,7 +64,8 @@ L.TileLayer.ChinaProvider.providers = {
             Map: "http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
         },
         Satellite: {
-            Map: "http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}"
+            Map: "http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}",
+            Road: "http://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}"
         },
         Subdomains: []
     },

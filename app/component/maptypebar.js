@@ -1,4 +1,12 @@
+import '../common/css/mapbox-gl.css';
+
 import L from 'leaflet';
+
+// 在initMapbox中，也可以不用这个小插件
+import '../common/leaflet-plugin/leaflet-mapbox-gl.js'; 
+
+// import mapboxgl from 'mapbox-gl';//在../common/leaflet-plugin/leaflet-mapbox-gl.js中引入
+
 import projzh from 'projzh';
 
 import '../common/leaflet-plugin/leaflet.ChineseTmsProviders.js'; //源码上有修改
@@ -32,6 +40,7 @@ class Maptypebar {
         this.initTianDitu();
         this.initGaode();
         this.initGeoq();
+        this.initMapbox();
         this.initSomeCoolMap();
         this.googleImage = L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
             attribution: 'google'
@@ -61,6 +70,9 @@ class Maptypebar {
             "Geoq灰色": this.normalm4,
             "Geoq暖色": this.normalm5,
             "Geoq冷色": this.normalm6,
+            "Mapbox darkV9":this.darkV9,
+            "Mapbox trafficNight":this.trafficNight,
+            "Mapbox satellite":this.satellite,
             '黑白图': this.tonerLayer,
             '地形图': this.terrainLayer,
             '水域图': this.watercolorLayer,
@@ -70,8 +82,6 @@ class Maptypebar {
 
         this.baseLayers = baseLayers;
         L.control.layers(baseLayers, { '天地图标注':this.tianDituLayersAnno ,'绘制图层': drawnItems }, { position: 'topleft', collapsed: true }).addTo(map);
-
-
 
     }
     initTianDitu() {
@@ -176,6 +186,21 @@ class Maptypebar {
         this.geoqLayers = geoqLayers;
 
         // L.control.layers(geoqLayers ,{}, { position: 'topleft', collapsed: false }).addTo(map);
+
+    }
+    initMapbox(){
+        const token = "pk.eyJ1IjoidGVjaGZlIiwiYSI6ImNqMHVrMmt1cDA0Y2czMm10dWlsb3UzcmEifQ.B28sl4Ds0bQKD706bgdzUg";
+        let darkV9 = L.mapboxGL({
+            accessToken: token,
+            style: 'mapbox://styles/mapbox/dark-v9'
+        })
+        this.darkV9 = darkV9;
+        //也可以不用插件leaflet-mapbox-gl.js
+        //https://www.mapbox.com/studio/styles/mapbox/traffic-night-v2/share/
+        let trafficNight =  L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/traffic-night-v2/tiles/256/{z}/{x}/{y}?access_token='+token);
+        this.trafficNight = trafficNight;
+        let satellite =  L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v10/tiles/256/{z}/{x}/{y}?access_token='+token);
+        this.satellite = satellite;
 
     }
     initSomeCoolMap() {

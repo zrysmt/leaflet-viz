@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "SET DEBUG=true && webpack-dev-server --history-api-fallback --progress --profile --inline --colors --hot --port 5000",
-    "build": "SET DEBUG=false && webpack --progress --profile --colors"
+    "build": "SET DEBUG=false && webpack -p --progress --profile --colors"
   },
   "author": "",
   "license": "ISC",
