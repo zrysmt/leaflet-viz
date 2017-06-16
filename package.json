@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "SET DEBUG=true && webpack-dev-server --history-api-fallback --progress --profile --inline --colors --hot --port 5000",
+    "dev": "SET DEBUG=true && webpack-dev-server --history-api-fallback --progress --profile --inline --colors --hot --port 5000 --open",
     "build": "SET DEBUG=false && webpack -p --progress --profile --colors"
   },
   "author": "",
